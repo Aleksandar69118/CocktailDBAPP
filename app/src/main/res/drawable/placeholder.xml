@@ -1,0 +1,7 @@
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/placeholder">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/darker_gray"/>
+        </shape>
+    </item>
+</animated-selector>
