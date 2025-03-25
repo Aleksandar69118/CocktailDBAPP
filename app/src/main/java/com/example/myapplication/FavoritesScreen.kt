@@ -1,10 +1,6 @@
 package com.example.myapplication
 
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.Arrangement
@@ -269,7 +265,7 @@ private fun FavoriteCocktailCard(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = cocktail.strDrink ?: "Unknown Cocktail",
+                    text = cocktail.strDrink,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -278,7 +274,7 @@ private fun FavoriteCocktailCard(
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = cocktail.strCategory ?: "Unknown Category",
+                    text = cocktail.strCategory,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                 )
