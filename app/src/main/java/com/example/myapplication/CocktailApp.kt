@@ -297,8 +297,3 @@ fun ErrorMessage(message: String, onRetry: () -> Unit) {
         }
     }
 }
-
-@Composable
-fun FavoritesScreen(viewModel: CocktailViewModel, onCocktailSelected: (String) -> Unit, onBack: () -> Unit) {
-    // Implementa la logica per i preferiti
-}

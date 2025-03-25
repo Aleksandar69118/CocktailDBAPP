@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -75,6 +76,9 @@ class CocktailViewModel : ViewModel() {
     private val _errorMessage = mutableStateOf<String?>(null)
     val errorMessage: State<String?> = _errorMessage
 
+    private val _favorites = mutableStateListOf<Cocktail>()
+    val favorites: List<Cocktail> get() = _favorites
+
     fun onSearchQueryChanged(query: String) {
         _searchQuery.value = query
     }
@@ -95,12 +99,31 @@ class CocktailViewModel : ViewModel() {
         }
     }
 
-    // Aggiungi logica per i preferiti
-    private val _favorites = mutableStateOf<List<Cocktail>>(emptyList())
-    val favorites: State<List<Cocktail>> = _favorites
+    fun moveFavorite(from: Int, to: Int) {
+        if (from == to || from !in _favorites.indices || to !in _favorites.indices) return
 
-    fun addToFavorites(cocktail: Cocktail) {
-        _favorites.value = _favorites.value + cocktail
+        val item = _favorites.removeAt(from)
+        _favorites.add(to, item)
+    }
+
+    fun toggleFavorite(cocktail: Cocktail) {
+        if (_favorites.any { it.idDrink == cocktail.idDrink }) {
+            _favorites.removeAll { it.idDrink == cocktail.idDrink }
+        } else {
+            _favorites.add(cocktail)
+        }
+    }
+
+    fun clear() {
+        _favorites.clear()
+    }
+
+    fun isFavorite(cocktailId: String): Boolean {
+        return _favorites.any { it.idDrink == cocktailId }
+    }
+
+    fun getFavoriteById(cocktailId: String): Cocktail? {
+        return _favorites.firstOrNull { it.idDrink == cocktailId }
     }
 
     fun getCocktailDetails(id: String) {
